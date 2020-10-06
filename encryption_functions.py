@@ -1,3 +1,5 @@
+#Common notation used for returning values of every function: [<encrypted string>,<function serial number>,<additional values(if any exist)>]
+
 import random, string
 
 caps = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -35,7 +37,7 @@ def enc_fun1(plain_text):
                 nstr+=num[(ord(t[i])%47)+n-1]
         else:
             nstr+= t[i]
-    return nstr
+    return [nstr,1,n]
 
 def enc_fun2(plain_text):
     nstr=''
@@ -51,16 +53,16 @@ def enc_fun2(plain_text):
                nstr+= x[int(i/2)-len(plain_text)]
             else:
                 nstr+= x[int(i/2)]
-    return nstr
+    return [nstr,2]
 
 def enc_fun3(plain_text):
     grp=[]
     n=(len(plain_text))%5
-    for i in range(0,int((len(plain_text)-1)/5)):
+    for i in range(0,int((len(plain_text))/5)):
         grp.append(plain_text[i*5:(i+1)*5])
         if i==int((len(plain_text)-1)/5)-1:
-            if n!=0:
-                grp.append(plain_text[(i+1)*5:((i+1)*5)+n])
+            grp.append(plain_text[(i+1)*5:((i+1)*5)+n])
+
     grpstr = ''.join(grp[::-1])
     nstr=''
     for i in range(len(grpstr)):
@@ -83,7 +85,7 @@ def enc_fun3(plain_text):
             nstr+=chr(ord(grpstr[i]))
         else:
             nstr+=chr(ord(grpstr[i])+5)
-    return nstr
+    return [nstr,3]
 
 def enc_fun4(plain_text,dob):
     if str(dob).isdigit()==False:
@@ -94,11 +96,14 @@ def enc_fun4(plain_text,dob):
         j=0
         o=[]
         for i in range(len(pt)):
-            o.append(chr(ord(pt[i])+ndob[j]))
+            if ord(pt[i])>=123:
+                o.append(pt[i])
+            else:
+                o.append(chr(ord(pt[i])+ndob[j]))
             j+=1
             if j==len(ndob):
                 j=0
-        return ''.join(str(i) for i in o)
+        return [''.join(str(i) for i in o),4]
 
 def enc_fun5(plain_text,n):
     generated_strings=[]
@@ -124,16 +129,16 @@ def enc_fun5(plain_text,n):
             else:
                 nstr+= pt[i]
         pt = nstr
-    return pt,generated_strings
+    return [pt[-len(plain_text):],5,generated_strings]
 
 def enc_fun6(plain_text):
     a=plain_text
     r=(a[::-1])
-    l=[]
+    nstr=[]
     for i in range(len(r)):
-        if ord(r[i])<=90:
-            l.append(r[i])
+        if ord(r[i])<=95:
+            nstr.append(r[i])
         else:
-            l.append(chr(ord(r[i])-64))
+            nstr.append(chr(ord(r[i])-64))
 
-    return (''.join(str(i) for i in l))
+    return [''.join(str(i) for i in nstr),6]
