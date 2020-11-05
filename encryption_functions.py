@@ -89,7 +89,7 @@ def enc_fun3(plain_text):
 
 def enc_fun4(plain_text,dob):
     if str(dob).isdigit()==False:
-        return -1
+        return -1 # returns -1 if the date of birth has text or special characters
     else:
         ndob = [int(x) for x in str(dob)]
         pt=plain_text
@@ -117,13 +117,13 @@ def enc_fun5(plain_text,n):
             if pt[i].islower():
                 nn= ord(generated_strings[j][i])%96
                 if ord(pt[i])+nn>=122:
-                    nstr+= chr((ord(pt[i])%96)+nn+71)
+                    nstr+= chr((ord(pt[i]))+nn-122+97)
                 else:
                     nstr+= chr(ord(pt[i])+nn)
             elif pt[i].isupper():
                 nn= ord(generated_strings[j][i])%96
                 if ord(pt[i])+nn>=90:
-                    nstr+= chr((ord(pt[i])%64)+nn+39)
+                    nstr+= chr((ord(pt[i]))+nn-90+65)
                 else:
                     nstr+= chr(ord(pt[i])+nn)
             else:
