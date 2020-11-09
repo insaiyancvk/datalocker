@@ -41,7 +41,7 @@ def enc_fun1(plain_text):
 
 def enc_fun2(plain_text):
     nstr=''
-    x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(len(plain_text)))
+    x = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(len(plain_text)))
     for i in range(0,2*len(plain_text)):
         if i%2==0:
             if i>=len(plain_text):
@@ -142,3 +142,5 @@ def enc_fun6(plain_text):
             nstr.append(chr(ord(r[i])-64))
 
     return [''.join(str(i) for i in nstr),6]
+
+print(enc_fun2("pxdai axxqT"))
