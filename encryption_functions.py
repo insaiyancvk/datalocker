@@ -141,5 +141,3 @@ def enc_fun6(plain_text):
         else:
             nstr.append(chr(ord(r[i])-64))
     return [''.join(str(i) for i in nstr),6]
-
-print(enc_fun2("pxdai axxqT"))
