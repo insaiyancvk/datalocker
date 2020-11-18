@@ -84,7 +84,7 @@ def enc_fun3(plain_text):
         elif ord(grpstr[i])>122:
             nstr+=chr(ord(grpstr[i]))
         else:
-            nstr+=chr(ord(grpstr[i])+5)
+            nstr+=chr(ord(grpstr[i]))
     return [nstr,3]
 
 def enc_fun4(plain_text,dob):
@@ -136,8 +136,27 @@ def enc_fun6(plain_text):
     r=(a[::-1])
     nstr=[]
     for i in range(len(r)):
-        if ord(r[i])<=95:
-            nstr.append(r[i])
-        else:
+        if ord(r[i])>=97 and ord(r[i])<=126:
             nstr.append(chr(ord(r[i])-64))
+        else:
+            nstr.append(r[i])
     return [''.join(str(i) for i in nstr),6]
+
+def selector(cypher_text,i,d):
+    enc_funs={
+                "2":enc_fun2(cypher_text),
+                "3":enc_fun3(cypher_text),
+                "4":enc_fun4(cypher_text,int(d))
+            } 
+    return enc_funs[i][0]
+
+def encryptor(text, key):
+    cypher_text=text[:]
+    if str(key).isdigit():
+        for i in ["3","4"]:
+            cypher_text=selector(cypher_text,i,d=key)
+        return cypher_text
+    else:
+        return -1 # returns -1 if the key has any non-numeric character
+
+print(encryptor("Hello ~!@#$123",104587))

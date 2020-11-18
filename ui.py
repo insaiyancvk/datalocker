@@ -26,15 +26,7 @@ def encryption():
             plain_text=input("enter your plain text:")
             func_seq=input("enter the sequence of your choice:")
             func_seq.replace(" ","")
-            cypher_text=plain_text[:]          
-            enc_funs={
-                "1":enc_fun1(cypher_text),
-                "2":enc_fun2(cypher_text),
-                "3":enc_fun3(cypher_text),
-                "4":enc_fun4(cypher_text,int(d)),
-                "5":enc_fun5(cypher_text,3),
-                "6":enc_fun6(cypher_text)
-            }
+            cypher_text=plain_text[:]
             n=0
             a=[]
             for i in func_seq:
@@ -46,10 +38,6 @@ def encryption():
                     cypher_text=encrypter(cypher_text,i,d)
             print(cypher_text,n,a)
 
-
-           
-
-
         else:
             print("invalid")
             encryption()
@@ -60,11 +48,6 @@ def encryption():
 
 def decryption():
     print("enter your key")
-
-
-
-
-
 
 
 

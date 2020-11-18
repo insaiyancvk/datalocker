@@ -1,6 +1,7 @@
 caps = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 small = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 num = ['0','1','2','3','4','5','6','7','8','9']
+
 def dec_fun1(y,n):
     nstr=''
     t=y[::-1]
@@ -23,12 +24,14 @@ def dec_fun1(y,n):
             else:
                 nstr= t[i]
     return nstr
+
 def dec_fun2(x):
     nstr=''
     for i in range (0,len(x)):
         if i%2==0:
             nstr+=x[int(i)]
     return nstr
+
 def dec_fun3(plain_text):
     nstr= ''
     grpstr=plain_text
@@ -51,7 +54,7 @@ def dec_fun3(plain_text):
         elif ord(grpstr[i])>122:
             nstr+=chr(ord(grpstr[i]))
         else:
-            nstr+=chr(ord(grpstr[i])-5)
+            nstr+=chr(ord(grpstr[i]))
     grp=[]
     n=len(plain_text)%5
     grp.append(nstr[:n])
@@ -59,25 +62,25 @@ def dec_fun3(plain_text):
         grp.append(nstr[n+((i)*5):n+((i+1)*5)])
     return ''.join(grp[::-1])
 
-def dec_func4(a,b):
-        if str(b).isdigit()==False:
-                print(-1) 
-        else:
-            ndob = [int(x) for x in str(b)]
-            pt=a
-            j=0
-            o=[]
-            for i in range(len(pt)):
-                    if ord(pt[i])>=126:
-                        o.append(pt[i])
-                        print(o[i])
-                    else:
-                        o.append(chr(ord(pt[i])-ndob[j]))
-                        print(o[i])
-                    j+=1
-                    if j==len(ndob):
-                        j=0
-def dec_func5(plain_text,generated_strings):
+def dec_fun4(a,b):
+    o=[]
+    if str(b).isdigit()==False:
+            print(-1) 
+    else:
+        ndob = [int(x) for x in str(b)]
+        pt=a
+        j=0
+        for i in range(len(pt)):
+                if ord(pt[i])>=123:
+                    o.append(pt[i])
+                else:
+                    o.append(chr(ord(pt[i])-ndob[j]))
+                j+=1
+                if j==len(ndob):
+                    j=0
+    return ''.join(str(i) for i in o)
+
+def dec_fun5(plain_text,generated_strings):
     nstr= ''
     pt=plain_text
     nn=0
@@ -99,15 +102,33 @@ def dec_func5(plain_text,generated_strings):
                 nstr+= pt[i]
         pt = nstr
     return(pt[-len(plain_text):])
+
 def dec_fun6(plain_text):
     a=plain_text
     b=(a[::-1])
     nstr=[]
     for i in range (len(b)):
-        if ord(b[i])<=90 and ord(b[i])>=65:
-            nstr.append(b[i])
-        elif ord(b[i])>32 and ord(b[i])<=58:
+        if ord(b[i])>=33 and ord(b[i])<=62:
             nstr.append(chr(ord(b[i])+64))
         else:
-            nstr.append(chr(32))
+            nstr.append(b[i])
     return(''.join(str(i) for i in nstr))
+
+def selector(plain_text,i,d):
+    dec_funs={
+                "2":dec_fun2(plain_text),
+                "3":dec_fun3(plain_text),
+                "4":dec_fun4(plain_text,int(d)),
+            } 
+    return dec_funs[i]
+
+def decryptor(text, key):
+    plain_text=text[:]
+    if str(key).isdigit():
+        for i in ["4","3"]:
+            plain_text=selector(plain_text,i,d=key)
+        return plain_text
+    else:
+        return -1 # returns -1 if the key has any non-numeric character
+
+print(decryptor("%6;=(~\"@'Rrxrt",104587))
