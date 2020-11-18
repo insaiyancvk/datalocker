@@ -1,4 +1,4 @@
-#Common notation used for returning values of every function: [<encrypted string>,<function serial number>,<additional values(if any exist)>]
+#Notation used for returning values of every function: [<encrypted string>,<function serial number>,<additional values(if any exist)>]
 
 import random, string
 
@@ -158,5 +158,3 @@ def encryptor(text, key):
         return cypher_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
-
-print(encryptor("Hello ~!@#$123",104587))

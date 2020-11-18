@@ -130,5 +130,3 @@ def decryptor(text, key):
         return plain_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
-
-print(decryptor("%6;=(~\"@'Rrxrt",104587))
