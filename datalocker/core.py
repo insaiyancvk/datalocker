@@ -1,5 +1,4 @@
 import pandas as pd 
-import numpy as np
 from .encryption_functions import enc_fun2
 from .decryption_functions import dec_fun2
 
