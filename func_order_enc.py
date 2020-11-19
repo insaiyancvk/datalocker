@@ -2,7 +2,7 @@ from encryption_functions import *
 
 try:
     import pandas as pd
-except:
+except ModuleNotFoundError:
     print("Pandas library not found :(")
     exit()
 
@@ -10,22 +10,22 @@ def make_csv(d,k,genstr=[]):
     try:
         df = pd.read_csv("db.csv")
         print("Reading the database")
-        dt=[]
-        dt.append(k)
-        for i in genstr:
-            dt.append(i)
-        df[d]=dt
-        df.to_csv("db.csv",index=False)
     except:
-        dt=[]
-        dt.append(k)
-        for i in genstr:
-            dt.append(i)
-        data={
-            d:dt
-        }
-        df = pd.DataFrame(data)
-        df.to_csv("db.csv",index=False)
+        df = pd.DataFrame()
+    dt=[]
+    dt.append(k)
+    for i in genstr:
+        dt.append(i)
+    try:
+        df[d]=dt
+    except ValueError:
+        df[d] = pd.Series(dt)
+        if df.isnull().values.any():
+            df[d].fillna('')
+            #####################################################
+              # add a feature to save columns with any length #
+            #####################################################
+    df.to_csv("db.csv",index=False)
 
 def encrypter1(cypher_text,i,d=0,n=0):
     enc_funs={
@@ -114,6 +114,9 @@ def func_encryptor(text, key):
             print("\nSuccessfully saved to the database\n")
         elif yn.lower()=='n':
             print("Please remember the key :)\n")
+        else:
+            print("Invalid option.. exiting.")
+            exit()
 
 
-func_encryptor("Hello world",123)
+func_encryptor("Hello world",1245)

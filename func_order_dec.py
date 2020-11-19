@@ -19,7 +19,7 @@ def decrypter1(cypher_text,i,n=0,d='',gen_str=[]):
         return dec_fun5(cypher_text,gen_str)
     elif i=='6':
         return dec_fun6(cypher_text)
-    
+
 def func_decryptor(text,key=''):
     d=''
     strs=[]
@@ -95,4 +95,4 @@ def func_decryptor(text,key=''):
     print("- "*45)
     print()
 
-func_decryptor("i eooySlldr")
+func_decryptor("dXdIkdcmxN fiBbiomhmGf")
