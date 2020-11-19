@@ -93,17 +93,31 @@ def enc_fun4(plain_text,dob):
     else:
         ndob = [int(x) for x in str(dob)]
         pt=plain_text
+        nstr=''
         j=0
-        o=[]
+        # o=[]
         for i in range(len(pt)):
-            if ord(pt[i])>=123:
-                o.append(pt[i])
+            if pt[i].isupper():
+                if (ord(pt[i])%64)+ndob[j] >= len(caps):
+                    nstr+=caps[(ord(pt[i])%64)+ndob[j]-len(caps)-1]
+                else:
+                    nstr+=caps[(ord(pt[i])%64)+ndob[j]-1]
+            elif pt[i].islower():
+                if (ord(pt[i])%96)+ndob[j] >= len(small):
+                    nstr+=small[(ord(pt[i])%96)+ndob[j]-len(small)-1]
+                else:
+                    nstr+=small[(ord(pt[i])%96)+ndob[j]-1]
+            elif ord(pt[i])>47 and ord(pt[i])<58:
+                if (ord(pt[i])%47)+ndob[j] >= len(num):
+                    nstr+=num[(ord(pt[i])%47)+ndob[j]-len(num)-1]
+                else:
+                    nstr+=num[(ord(pt[i])%47)+ndob[j]-1]
             else:
-                o.append(chr(ord(pt[i])+ndob[j]))
+                nstr+= pt[i]
             j+=1
             if j==len(ndob):
                 j=0
-        return [''.join(str(i) for i in o),4]
+        return [''.join(str(i) for i in nstr),4]
 
 def enc_fun5(plain_text,n):
     generated_strings=[]
@@ -158,3 +172,5 @@ def encryptor(text, key):
         return cypher_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
+
+# print(enc_fun4("hello world",17092001))

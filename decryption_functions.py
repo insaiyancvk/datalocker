@@ -22,7 +22,7 @@ def dec_fun1(y,n):
                 else:
                     nstr+=num[(ord(t[i])%47)-n-1]
             else:
-                nstr= t[i]
+                nstr+= t[i]
     return nstr
 
 def dec_fun2(x):
@@ -63,7 +63,7 @@ def dec_fun3(plain_text):
     return ''.join(grp[::-1])
 
 def dec_fun4(a,b):
-    o=[]
+    nstr=''
     if str(b).isdigit()==False:
             print(-1) 
     else:
@@ -71,14 +71,27 @@ def dec_fun4(a,b):
         pt=a
         j=0
         for i in range(len(pt)):
-                if ord(pt[i])>=123:
-                    o.append(pt[i])
+            if pt[i].isupper():
+                if (ord(pt[i])%64)-ndob[j] >= len(caps):
+                    nstr+=caps[(ord(pt[i])%64)-ndob[j]-len(caps)-1]
                 else:
-                    o.append(chr(ord(pt[i])-ndob[j]))
-                j+=1
-                if j==len(ndob):
-                    j=0
-    return ''.join(str(i) for i in o)
+                    nstr+=caps[(ord(pt[i])%64)-ndob[j]-1]
+            elif pt[i].islower():
+                if (ord(pt[i])%96)-ndob[j] >= len(small):
+                    nstr+=small[(ord(pt[i])%96)-ndob[j]-len(small)-1]
+                else:
+                    nstr+=small[(ord(pt[i])%96)-ndob[j]-1]
+            elif ord(pt[i])>47 and ord(pt[i])<58:
+                if (ord(pt[i])%47)-ndob[j] >= len(num):
+                    nstr+=num[(ord(pt[i])%47)-ndob[j]-len(num)-1]
+                else:
+                    nstr+=num[(ord(pt[i])%47)-ndob[j]-1]
+            else:
+                nstr+= pt[i]
+            j+=1
+            if j==len(ndob):
+                j=0
+    return ''.join(str(i) for i in nstr)
 
 def dec_fun5(plain_text,generated_strings):
     nstr= ''
@@ -87,6 +100,7 @@ def dec_fun5(plain_text,generated_strings):
     for j in range(len(generated_strings)):
         for i in range(len(plain_text)):
             if pt[i].islower():
+                # print(generated_strings[j])
                 nn= ord(generated_strings[j][i])%96
                 if ord(pt[i])-nn<97:
                     nstr+= chr(122-(97-(ord(pt[i])-nn)))
@@ -101,7 +115,7 @@ def dec_fun5(plain_text,generated_strings):
             else:
                 nstr+= pt[i]
         pt = nstr
-    return(pt[-len(plain_text):])
+    return pt[-len(plain_text):]
 
 def dec_fun6(plain_text):
     a=plain_text
@@ -130,3 +144,5 @@ def decryptor(text, key):
         return plain_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
+
+# print(dec_fun4("illuq wpssd",17092001))

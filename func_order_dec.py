@@ -6,7 +6,7 @@ except:
     print("Pandas library not found :(")
     exit()
 
-def decrypter1(cypher_text,i,n=0,d='0',gen_str=[]):
+def decrypter1(cypher_text,i,n=0,d='',gen_str=[]):
     if i=='1':
         return dec_fun1(cypher_text,n)
     elif i=='2':
@@ -19,26 +19,18 @@ def decrypter1(cypher_text,i,n=0,d='0',gen_str=[]):
         return dec_fun5(cypher_text,gen_str)
     elif i=='6':
         return dec_fun6(cypher_text)
-    # dec_funs={
-    #             "2":dec_fun2(cypher_text),
-    #             "3":dec_fun3(cypher_text),
-    #             "6":dec_fun6(cypher_text),
-    #             "4":dec_fun4(cypher_text,int(d)),
-    #             "5":dec_fun5(cypher_text,gen_str),
-    #             "1":dec_fun1(cypher_text,n)
-    #         } 
-    # return dec_funs[i]
     
 def func_decryptor(text,key=''):
     d=''
+    strs=[]
     x = input("Is your data saved in the database?\nif it is, then the key will automatically be loaded(Y/N): ")
     if x.lower()=='y':
         try:
-            df = pd.read_csv("db.csv")
+            df = pd.read_csv("db.csv",index_col=False)
             print("database successfully loaded")
             d=input("Enter your dob/the '8 digit' number: ")
             try:
-                strs=df[d]
+                strs=df[d].values
                 key=strs[0]
                 print("Your key: {}\n".format(key))
             except:
@@ -48,6 +40,9 @@ def func_decryptor(text,key=''):
             print("Database not found :(")
     elif x.lower()=='n':
         key=input("Enter the key: ")
+    else:
+        print("\nInvalid input.. exiting.\n")
+        exit()
     key=str(key)
     order=[]
     plain_text=text[:]
@@ -68,7 +63,7 @@ def func_decryptor(text,key=''):
             if len(d)==0:
                 d=input("Enter your dob (or the random 8 digit number) \nthat you entered while encryption: ")
             if d.isdigit()==True:
-                plain_text = decrypter1(plain_text,i,d)
+                plain_text = decrypter1(plain_text,i,d=d)
             else:
                 print("Non-numeric characters detected")
                 exit()
@@ -78,18 +73,16 @@ def func_decryptor(text,key=''):
             if d.isdigit()==True:
                 try:
                     df = pd.read_csv("db.csv",index_col=None)
-                    # try:
-                    if len(strs)==0:
-                        strs = df[d]
-                    if len(strs)!=2:
-                        print("Key or generated strings missing :(")
+                    try:
+                        if len(strs)==0:
+                            strs = df[d].values
+                        if len(strs)<2:
+                            print("Key or generated strings missing :(")
+                            exit()
+                        plain_text = decrypter1(cypher_text=plain_text,i=i,n=0,d=d,gen_str=strs[1:])
+                    except Exception as e:
+                        print("\nan error occured: {} :(",e)
                         exit()
-                    print(strs[1])
-                    plain_text = decrypter1(plain_text,i,d,gen_str=strs[1])
-                    # except Exception as e:
-                    #     print("\ndob/your '8 digit number' not found the the database :(")
-                    #     print(e)
-                    #     exit()
                 except FileNotFoundError:
                     print("Database not found :(\n")
                     exit()
@@ -97,6 +90,9 @@ def func_decryptor(text,key=''):
                 print("Non-numeric characters detected")
         else:
             plain_text = decrypter1(plain_text,i)
-    
-func_decryptor("b rismQwlry")
-        
+    print("- "*45)
+    print("\nThe decrypted text : {}\n".format(plain_text))
+    print("- "*45)
+    print()
+
+func_decryptor("i eooySlldr")
