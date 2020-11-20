@@ -91,4 +91,4 @@ def encryptor(text, key):
     else:
         return -1 # returns -1 if the key has any non-numeric character
 
-print(encryptor("Hello ~!@#$123",104587))
+# print(encryptor("Hello ~!@#$123",104587))

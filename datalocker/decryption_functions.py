@@ -72,4 +72,4 @@ def decryptor(text, key):
     else:
         return -1 # returns -1 if the key has any non-numeric character
 
-print(decryptor("%6;=(~\"@'Rrxrt",104587))
+# print(decryptor("%6;=(~\"@'Rrxrt",104587))
