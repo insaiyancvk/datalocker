@@ -130,7 +130,7 @@ def enc_fun5(plain_text,n):
         for i in range(len(plain_text)):
             if pt[i].islower():
                 nn= ord(generated_strings[j][i])%96
-                if ord(pt[i])+nn>=122:
+                if ord(pt[i])+nn>=123:
                     nstr+= chr((ord(pt[i]))+nn-122+97)
                 else:
                     nstr+= chr(ord(pt[i])+nn)
@@ -165,12 +165,13 @@ def selector(cypher_text,i,d):
     return enc_funs[i][0]
 
 def encryptor(text, key):
+    text=str(text)
     cypher_text=text[:]
     if str(key).isdigit():
-        for i in ["3","4"]:
+        for i in ["4","2"]:
             cypher_text=selector(cypher_text,i,d=key)
         return cypher_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
 
-# print(enc_fun4("hello world",17092001))
+# print(enc_fun5("a",1))

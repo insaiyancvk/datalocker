@@ -1,31 +1,25 @@
 from encryption_functions import *
 
 try:
+    import os
+except ModuleNotFoundError:
+    print("os library not found \o/")
+    exit()
+
+try:
     import pandas as pd
 except ModuleNotFoundError:
     print("Pandas library not found :(")
     exit()
 
 def make_csv(d,k,genstr=[]):
-    try:
-        df = pd.read_csv("db.csv")
-        print("Reading the database")
-    except:
-        df = pd.DataFrame()
+    df = pd.DataFrame()
     dt=[]
     dt.append(k)
     for i in genstr:
         dt.append(i)
-    try:
-        df[d]=dt
-    except ValueError:
-        df[d] = pd.Series(dt)
-        if df.isnull().values.any():
-            df[d].fillna('')
-            #####################################################
-              # add a feature to save columns with any length #
-            #####################################################
-    df.to_csv("db.csv",index=False)
+    df[d]=dt
+    df.to_csv("database/{}.csv".format(d),index=False)
 
 def encrypter1(cypher_text,i,d=0,n=0):
     enc_funs={
@@ -63,12 +57,9 @@ def func_encryptor(text, key):
             print("You have chosen the 5th encryption function")
             if len(d)==0:
                 d=input("Enter your date of birth (or any random 8 digit number): ")
-                try:
-                    df = pd.read_csv("db.csv")
-                    while d in df.columns:
-                        d=input("{} already exists in the database, please try any other 8 digit number: ".format(d))
-                except:
-                    pass
+                dirs = os.listdir("./database")
+                while (d+".csv") in dirs:
+                    d=input("{} already exists in the database, please try any other 8 digit number: ".format(d))
             n=int(input("Enter the number of strings to be generated: "))
             cypher_text, gen_str = encrypter1(cypher_text,i,d,n)
             keygen.append('5')
@@ -76,17 +67,15 @@ def func_encryptor(text, key):
         elif i=='4':
             if len(d)==0:
                 d=input("Enter your date of birth (or any random 8 digit number): ")
-                try:
-                    df = pd.read_csv("db.csv")
-                    while d in df.columns:
-                        d=input("{} already exists in the database, please try any other 8 digit number: ".format(d))
-                except:
-                    pass
+                dirs = os.listdir("./database")
+                while (d+".csv") in dirs:
+                    d=input("{} already exists in the database, please try any other 8 digit number: ".format(d))
             cypher_text = encrypter1(cypher_text,i,d)
             keygen.append('4')
         else:
             cypher_text = encrypter1(cypher_text,i)
             keygen.append(i)
+        # print(cypher_text)
     print()
     print("- "*45)
     print("Here is your encrypted text: {}\n".format(cypher_text))
@@ -98,12 +87,12 @@ def func_encryptor(text, key):
         if flag:
             print("Saving the generated strings to the database.. ")
             make_csv(d,final_key,gen_str)
-            print("Data saved to db.csv")
+            print("Data saved to {}.csv".format(d))
         else:
             n=input("dob entered do you want to save the key to the database?(Y/N)")
             if n.lower()=="y":
                 make_csv(d,final_key)
-                print("Data saved to db.csv")
+                print("Data saved to {}.csv".format(d))
             elif n.lower()=='n':
                 print("\nPlease remember the key :)\n")
     else:
@@ -119,4 +108,4 @@ def func_encryptor(text, key):
             exit()
 
 
-func_encryptor("Hello world",1245)
+# func_encryptor("hello world",1245)

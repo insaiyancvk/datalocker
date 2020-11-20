@@ -1,4 +1,11 @@
 from decryption_functions import *
+
+try:
+    import os
+except ModuleNotFoundError:
+    print("os library not found \o/")
+    exit()
+
 from itertools import islice
 try:
     import pandas as pd
@@ -26,9 +33,9 @@ def func_decryptor(text,key=''):
     x = input("Is your data saved in the database?\nif it is, then the key will automatically be loaded(Y/N): ")
     if x.lower()=='y':
         try:
-            df = pd.read_csv("db.csv",index_col=False)
-            print("database successfully loaded")
             d=input("Enter your dob/the '8 digit' number: ")
+            df = pd.read_csv("database/{}.csv".format(d),index_col=False)
+            print("database successfully loaded")
             try:
                 strs=df[d].values
                 key=strs[0]
@@ -72,7 +79,7 @@ def func_decryptor(text,key=''):
                 d=input("Enter your dob (or the random 8 digit number) \nthat you entered while encryption: ")
             if d.isdigit()==True:
                 try:
-                    df = pd.read_csv("db.csv",index_col=None)
+                    df = pd.read_csv("database/{}.csv".format(d),index_col=None)
                     try:
                         if len(strs)==0:
                             strs = df[d].values
@@ -83,16 +90,17 @@ def func_decryptor(text,key=''):
                     except Exception as e:
                         print("\nan error occured: {} :(",e)
                         exit()
-                except FileNotFoundError:
-                    print("Database not found :(\n")
+                except Exception as e:
+                    print("Database not found :( \n",e)
                     exit()
             else:
                 print("Non-numeric characters detected")
         else:
             plain_text = decrypter1(plain_text,i)
+        # print(plain_text)
     print("- "*45)
     print("\nThe decrypted text : {}\n".format(plain_text))
     print("- "*45)
     print()
 
-func_decryptor("dXdIkdcmxN fiBbiomhmGf")
+# func_decryptor("ixkmypmuwG qtrfw{obTur")

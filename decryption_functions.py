@@ -65,7 +65,7 @@ def dec_fun3(plain_text):
 def dec_fun4(a,b):
     nstr=''
     if str(b).isdigit()==False:
-            print(-1) 
+            return -1
     else:
         ndob = [int(x) for x in str(b)]
         pt=a
@@ -100,15 +100,14 @@ def dec_fun5(plain_text,generated_strings):
     for j in range(len(generated_strings)):
         for i in range(len(plain_text)):
             if pt[i].islower():
-                # print(generated_strings[j])
                 nn= ord(generated_strings[j][i])%96
-                if ord(pt[i])-nn<97:
+                if ord(pt[i])-nn<=97:
                     nstr+= chr(122-(97-(ord(pt[i])-nn)))
                 else:
                     nstr+= chr(ord(pt[i])-nn)
             elif pt[i].isupper():
                 nn= ord(generated_strings[j][i])%96
-                if ord(pt[i])-nn<65:
+                if ord(pt[i])-nn<=65:
                     nstr+= chr( 90-(65-(ord(pt[i])-nn )))
                 else:
                     nstr+= chr(ord(pt[i])-nn)
@@ -137,12 +136,13 @@ def selector(plain_text,i,d):
     return dec_funs[i]
 
 def decryptor(text, key):
+    text=str(text)
     plain_text=text[:]
     if str(key).isdigit():
-        for i in ["4","3"]:
+        for i in ["2","4"]:
             plain_text=selector(plain_text,i,d=key)
         return plain_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
-
-# print(dec_fun4("illuq wpssd",17092001))
+        
+# print(dec_fun5("o",['n']))
