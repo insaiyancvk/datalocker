@@ -10,12 +10,12 @@ Use it to easily encrypt/decrypt csv files.
 
 To encrypt a file:
 ```
-python dlocker.py  -e dummy.csv --save-as encrypted.csv
+python dlocker.py  -e dummy.csv --save-as encrypted.csv --key 1234
 ```
 
 To decrypt a file:
 ```
-python dlocker.py  -d encrypted.csv --save-as decrypted.csv
+python dlocker.py  -d encrypted.csv --save-as decrypted.csv --key 1234
 ```
 
 For help:
