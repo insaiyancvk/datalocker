@@ -2,29 +2,39 @@ from .constants import caps, small, num
 
 def dec_fun1(y,n):
     nstr=''
-    t=y[::-1]
+    t=y[::-1] # reversing the plain text
     for i in range(len(t)):
+        # rotating, eg, z->a or Z->A or 9->0
+        # subtracting 'n' from each element
             if t[i].isupper():
+
                 if (ord(t[i])%64)-n >= len(caps):
                     nstr+=caps[(ord(t[i])%64)-n-len(caps)-1]
                 else:
                     nstr+=caps[(ord(t[i])%64)-n-1]
+
             elif t[i].islower():
+
                 if (ord(t[i])%96)-n >= len(small):
                     nstr+=small[(ord(t[i])%96)-n-len(small)-1]
                 else:
                     nstr+=small[(ord(t[i])%96)-n-1]
+
             elif ord(t[i])>47 and ord(t[i])<58:
+
                 if (ord(t[i])%47)-n >= len(num):
                     nstr+=num[(ord(t[i])%47)-n-len(num)-1]
                 else:
                     nstr+=num[(ord(t[i])%47)-n-1]
+            
+            # append the element as it is if it's a special characters
             else:
                 nstr+= t[i]
     return nstr
 
 def dec_fun2(x):
     nstr=''
+    # selecting the alternate characters only.
     for i in range (0,len(x)):
         if i%2==0:
             nstr+=x[int(i)]
@@ -34,6 +44,8 @@ def dec_fun3(plain_text):
     nstr= ''
     grpstr=plain_text
     for i in range(len(grpstr)):
+        # subtracting 5 to all the ascii values
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - 
         if grpstr[i].isupper():
             if (ord(grpstr[i])%64)-5 >= len(caps):
                 nstr+=caps[(ord(grpstr[i])%64)-5+len(caps)-1]
@@ -53,22 +65,31 @@ def dec_fun3(plain_text):
             nstr+=chr(ord(grpstr[i]))
         else:
             nstr+=chr(ord(grpstr[i]))
+        # - - - - - - - - - - - - - - - - - - - - - - - - - - 
     grp=[]
     n=len(plain_text)%5
+
+    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    # grouping the plain text in groups of 5
+
     grp.append(nstr[:n])
     for i in range(0,len(nstr)-n):
         grp.append(nstr[n+((i)*5):n+((i+1)*5)])
-    return ''.join(grp[::-1])
+
+    # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+    return ''.join(grp[::-1]) # returning the reversed groups
 
 def dec_fun4(a,b):
     nstr=''
     if str(b).isdigit()==False:
-            return -1
+        return -1 # returns -1 if the date of birth has text or special characters
     else:
         ndob = [int(x) for x in str(b)]
         pt=a
         j=0
         for i in range(len(pt)):
+            # subtracting the number from dob/ an 8 digit number to corresponding character in plain text
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - 
             if pt[i].isupper():
                 if (ord(pt[i])%64)-ndob[j] >= len(caps):
                     nstr+=caps[(ord(pt[i])%64)-ndob[j]-len(caps)-1]
@@ -84,10 +105,12 @@ def dec_fun4(a,b):
                     nstr+=num[(ord(pt[i])%47)-ndob[j]-len(num)-1]
                 else:
                     nstr+=num[(ord(pt[i])%47)-ndob[j]-1]
+            # - - - - - - - - - - - - - - - - - - - - - - - - - - 
+            # leaving the special characters as they are
             else:
                 nstr+= pt[i]
             j+=1
-            if j==len(ndob):
+            if j==len(ndob): # reset the index counting variable of the dob to 0 if it reaches the end
                 j=0
     return ''.join(str(i) for i in nstr)
 
@@ -97,6 +120,9 @@ def dec_fun5(plain_text,generated_strings):
     nn=0
     for j in range(len(generated_strings)):
         for i in range(len(plain_text)):
+            # rotation for lowercase, uppercase
+            # subtracting the number from generated strings' character to corresponding character in plain text
+            # - -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
             if pt[i].islower():
                 nn= ord(generated_strings[j][i])%96
                 if ord(pt[i])-nn<=97:
@@ -109,12 +135,14 @@ def dec_fun5(plain_text,generated_strings):
                     nstr+= chr( 90-(65-(ord(pt[i])-nn )))
                 else:
                     nstr+= chr(ord(pt[i])-nn)
+            # - -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+            # leaving any non-aplhanumeric character as they are
             else:
                 nstr+= pt[i]
         pt = nstr
     return pt[-len(plain_text):]
 
-def dec_fun6(plain_text):
+def dec_fun6(plain_text): # abandoned
     a=plain_text
     b=(a[::-1])
     nstr=[]
@@ -125,6 +153,7 @@ def dec_fun6(plain_text):
             nstr.append(b[i])
     return(''.join(str(i) for i in nstr))
 
+# selecting the decryption functions 
 def selector(plain_text,i,d):
     dec_funs={
                 "2":dec_fun2(plain_text),
@@ -132,6 +161,7 @@ def selector(plain_text,i,d):
             } 
     return dec_funs[i]
 
+# decrypts a string. (used for encryption/decryption of csv files feature only)
 def decryptor(text, key):
     text=str(text)
     plain_text=text[:]
