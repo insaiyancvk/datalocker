@@ -1,12 +1,11 @@
-from decryption_functions import *
+from .decryption_functions import *
 
 try:
     import os
 except ModuleNotFoundError:
     print("os library not found \o/")
     exit()
-
-from itertools import islice
+    
 try:
     import pandas as pd
 except:

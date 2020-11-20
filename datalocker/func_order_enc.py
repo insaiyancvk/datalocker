@@ -1,4 +1,4 @@
-from encryption_functions import *
+from .encryption_functions import *
 
 try:
     import os
@@ -37,10 +37,15 @@ def encrypter1(cypher_text,i,d=0,n=0):
     else:
         return enc_funs[i][0]
 
-def func_encryptor(text, key):
+def func_encryptor(text):
+    invalid_options = ['6','7','8','9','0']
+    key=input("Enter a key of any number of digits but in the range of 1-5 (eg,1432) ")
     d=''
     flag=False
     key=str(key)
+    for i in key:
+        if i in invalid_options:
+            key = input("Please choose the key from 1-5: ")
     cypher_text=text[:]
     keygen=[]
     gen_str=[]

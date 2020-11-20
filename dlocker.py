@@ -1,13 +1,12 @@
 import argparse
 from datalocker.core import locker
 
-def main():
+if __name__ == "__main__": 
     parser = argparse.ArgumentParser(description='args')
     parser.add_argument('-e', type=str, help='name of the csv file to be encrypted', default=None)
-    parser.add_argument('-d', type=str, help='ame of the csv file to be decrypted', default=None)
+    parser.add_argument('-d', type=str, help='name of the csv file to be decrypted', default=None)
     parser.add_argument('--save-as', type=str, help='name of the file to be saved', default= "save.csv")
     parser.add_argument('--key', type= int, help='key to unlock', default= "save.csv")
-
 
     args = parser.parse_args()
 
@@ -18,5 +17,3 @@ def main():
     if args.d is not None:
         l = locker(filename = args.d)
         l.decrypt_csv(savename=args.save_as, save = True,key = args.key)
-
-main()
