@@ -45,7 +45,7 @@ python dlocker.py -e-str hello
 
 To decrypt a string:
 ```
-python dlocker.py -d-str encrypted_string
+python dlocker.py -d-str <encrypted_string>
 ```
 
 For help:
