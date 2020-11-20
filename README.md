@@ -8,6 +8,16 @@ Use it to easily encrypt/decrypt csv files.
 
 2. `cd OOPminiProject`
 
+## Arguments
+
+```
+  -h, --help         show this help message and exit
+  -e E               name of the csv file to be encrypted saved
+  --key KEY          key to unlock
+  -e-str E_STR       string to be encrypted
+  -d-str D_STR       string to be decrypted
+```
+
 ## Utilities
 
 To encrypt a file with a key:
