@@ -1,4 +1,4 @@
-# datalocker
+# Datalocker
 
 Use it to easily encrypt/decrypt csv files.
 
