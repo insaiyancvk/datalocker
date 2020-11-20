@@ -1,6 +1,4 @@
-caps = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-small = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-num = ['0','1','2','3','4','5','6','7','8','9']
+from .constants import caps, small, num
 
 def dec_fun1(y,n):
     nstr=''
@@ -130,7 +128,6 @@ def dec_fun6(plain_text):
 def selector(plain_text,i,d):
     dec_funs={
                 "2":dec_fun2(plain_text),
-                "3":dec_fun3(plain_text),
                 "4":dec_fun4(plain_text,int(d)),
             } 
     return dec_funs[i]

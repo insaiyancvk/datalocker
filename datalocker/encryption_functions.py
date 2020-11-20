@@ -1,10 +1,7 @@
 #Notation used for returning values of every function: [<encrypted string>,<function serial number>,<additional values(if any exist)>]
 
 import random, string
-
-caps = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-small = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-num = ['0','1','2','3','4','5','6','7','8','9']
+from .constants import caps, small, num
 
 def enc_fun1(plain_text):
     pt = plain_text
@@ -159,7 +156,6 @@ def enc_fun6(plain_text):
 def selector(cypher_text,i,d):
     enc_funs={
                 "2":enc_fun2(cypher_text),
-                "3":enc_fun3(cypher_text),
                 "4":enc_fun4(cypher_text,int(d))
             } 
     return enc_funs[i][0]
