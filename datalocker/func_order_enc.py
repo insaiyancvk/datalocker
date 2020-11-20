@@ -13,13 +13,14 @@ except ModuleNotFoundError:
     exit()
 
 def make_csv(d,k,genstr=[]):
-    df = pd.DataFrame()
-    dt=[]
+    df = pd.DataFrame() # initialize the pandas dataframe
+    dt=[] 
     dt.append(k)
-    for i in genstr:
-        dt.append(i)
+    if len(genstr)!=0:
+        for i in genstr:
+            dt.append(i)
     df[d]=dt
-    df.to_csv("database/{}.csv".format(d),index=False)
+    df.to_csv("database/{}.csv".format(d),index=False) 
 
 def encrypter1(cypher_text,i,d=0,n=0):
     enc_funs={
@@ -39,25 +40,35 @@ def encrypter1(cypher_text,i,d=0,n=0):
 
 def func_encryptor(text):
     invalid_options = ['6','7','8','9','0']
-    key=input("Enter a key of any number of digits but in the range of 1-5 (eg,1432) ")
-    d=''
-    flag=False
-    key=str(key)
+
+    key=input("Enter any number of digits from 1-5 (eg,1432): ") # input key, The range 1-5 are the encryption functions
+    d='' # initializing dob/an 8 digit number
+    flag=False # using to check if the user used 5th function
+    key=str(key) # explicitly convering key to string
+
+    # for checking invalid key input
     for i in key:
         if i in invalid_options:
             key = input("Please choose the key from 1-5: ")
-    cypher_text=text[:]
-    keygen=[]
-    gen_str=[]
+    
+    cypher_text=text[:] # copying plain text to another variable
+    keygen=[] # initialize list for storing the generated key
+    gen_str=[] # a list to store the generated strings from function 5
+
+    # encryption of plain text begins
     for i in key:
         if i=='1':
             cypher_text, e = encrypter1(cypher_text,i)
+            # checking if the third element's corresponding number is a single digit (used for generating a key)
             if len(e)==1:
                 keygen.append('10')
                 keygen.append(e)
+            # checking if the third element's corresponding number is a double digit
             else:
                 keygen.append('1')
                 keygen.append(e)
+
+        #  --------------------------------------------    
         elif i=='5':
             print("You have chosen the 5th encryption function")
             if len(d)==0:
@@ -69,6 +80,7 @@ def func_encryptor(text):
             cypher_text, gen_str = encrypter1(cypher_text,i,d,n)
             keygen.append('5')
             flag=True
+        #  --------------------------------------------
         elif i=='4':
             if len(d)==0:
                 d=input("Enter your date of birth (or any random 8 digit number): ")
@@ -80,7 +92,6 @@ def func_encryptor(text):
         else:
             cypher_text = encrypter1(cypher_text,i)
             keygen.append(i)
-        # print(cypher_text)
     print()
     print("- "*45)
     print("Here is your encrypted text: {}\n".format(cypher_text))
@@ -113,4 +124,4 @@ def func_encryptor(text):
             exit()
 
 
-# func_encryptor("hello world",1245)
+# func_encryptor("hello world",1245) # an example 
