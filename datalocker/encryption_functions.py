@@ -22,9 +22,13 @@ def enc_fun2(plain_text):
                nstr+= x[int(i/2)-len(plain_text)]
             else:
                 nstr+= x[int(i/2)]
-    return nstr
+    return [nstr,2]
 
 def enc_fun3(plain_text):
+
+    """
+    does not work on one "1"
+    """
     grp=[]
     n=(len(plain_text))%5
     for i in range(0,int((len(plain_text))/5)):
@@ -83,12 +87,13 @@ def selector(cypher_text,i,d):
     return enc_funs[i][0]
 
 def encryptor(text, key):
+    text = str(text)  ## force to str
     cypher_text=text[:]
     if str(key).isdigit():
-        for i in ["3","4"]:
+        for i in ["4", "2"]:
             cypher_text=selector(cypher_text,i,d=key)
         return cypher_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
 
-# print(encryptor("Hello ~!@#$123",104587))
+# print("foo:", encryptor("ammasasasaa", key =2327332))

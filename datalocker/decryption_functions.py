@@ -64,12 +64,13 @@ def selector(plain_text,i,d):
     return dec_funs[i]
 
 def decryptor(text, key):
+    text = str(text)
     plain_text=text[:]
     if str(key).isdigit():
-        for i in ["4","3"]:
+        for i in ["2","4"]:
             plain_text=selector(plain_text,i,d=key)
         return plain_text
     else:
         return -1 # returns -1 if the key has any non-numeric character
 
-# print(decryptor("%6;=(~\"@'Rrxrt",104587))
+# print(decryptor("cOpmoahnvLdyuIcsvScwhM", key = 2327332))
