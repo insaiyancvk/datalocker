@@ -8,14 +8,26 @@ Use it to easily encrypt/decrypt csv files.
 
 2. `cd OOPminiProject`
 
-To encrypt a file:
+## Utilities
+
+To encrypt a file with a key:
 ```
-python dlocker.py  -e dummy.csv --save-as encrypted.csv --key 1234
+python dlocker.py  -e carssales.csv --save-as encrypted.csv --key 1234
 ```
 
-To decrypt a file:
+To decrypt a file with a key:
 ```
 python dlocker.py  -d encrypted.csv --save-as decrypted.csv --key 1234
+```
+
+To encrypt a string:
+```
+python dlocker.py -e-str hello
+```
+
+To decrypt a string:
+```
+python dlocker.py -d-str encrypted_string
 ```
 
 For help:
