@@ -1,14 +1,22 @@
-# Datalocker
+# Datalocker :lock:
 
 Use it to easily encrypt/decrypt csv files.
 
-## Getting started
+## Getting started :closed_book:
 
-1. `git clone https://github.com/insaiyancvk/OOPminiProject.git`
+Install required libraries
 
-2. `cd OOPminiProject`
+  0. `pip install pandas argparse`
 
-## Arguments
+Clone the repo
+
+  1. `git clone https://github.com/insaiyancvk/datalocker.git`
+
+Navigate into the folder
+
+  2. `cd datalocker`
+
+## Arguments 
 
 ```
   -h, --help         show this help message and exit
@@ -18,7 +26,7 @@ Use it to easily encrypt/decrypt csv files.
   -d-str D_STR       string to be decrypted
 ```
 
-## Utilities
+## Utilities :wrench:
 
 To encrypt a file with a key:
 ```
