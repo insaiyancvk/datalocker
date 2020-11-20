@@ -40,7 +40,7 @@ python dlocker.py  -d encrypted.csv --save-as decrypted.csv --key 1234
 
 To encrypt a string:
 ```
-python dlocker.py -e-str hello
+python dlocker.py -e-str <string>
 ```
 
 To decrypt a string:
