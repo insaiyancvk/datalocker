@@ -30,7 +30,7 @@ Navigate into the folder
 
 To encrypt a file with a key:
 ```
-python dlocker.py  -e carssales.csv --save-as encrypted.csv --key 1234
+python dlocker.py  -e carsales.csv --save-as encrypted.csv --key 1234
 ```
 
 To decrypt a file with a key:
