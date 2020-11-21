@@ -52,3 +52,16 @@ For help:
 ```
 python dlocker.py --help
 ```
+
+## Use these encryption/decryption functions in your project!
+
+0. `pip install pandas argparse`
+1. `git clone https://github.com/insaiyancvk/datalocker.git`
+2. In your project, import the functions file:
+    * For the encryption functions:
+
+      `from  datalocker.encryption_functions import enc_fun1,enc_fun2,enc_fun3,enc_fun4` 
+    
+    * For the decryption functions:
+
+      `from  datalocker.decryption_functions import dec_fun1, dec_fun2, dec_fun3, dec_fun4`
