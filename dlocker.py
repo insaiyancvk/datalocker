@@ -6,7 +6,7 @@ from datalocker.func_order_dec import func_decryptor
 
 def main():
     """
-    fetch arg values from the terminal {
+    fetch arg values from the terminal (cmd) {
     type = default type
     help = message shown when we write $ python dlocker.py -h      
     }
